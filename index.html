@@ -218,6 +218,7 @@ const BOOTHS=[
 ];
 
 const OTHER_TOPICS=[
+  {topic:"Agent Platform",desc:"The platform behind the agents: releases, infrastructure, and enablement.",kw:["agent platform","platform enablement","platform releases"],color:"#0D3A29"},
   {topic:"Opti on Opti",desc:"How we run Optimizely on Optimizely — our own stack, live.",kw:["opti on opti","dogfooding","our own site"],color:"#007B79"},
   {topic:"Opal U",desc:"Opal University — enablement, training, and certification.",kw:["opal u","opal university","training","enablement"],color:"#197050"},
   {topic:"CMS",desc:"Content Management System — SaaS CMS and CMS 12.",kw:["cms","saas cms","cms 12","headless","content management"],color:"#8F4764"},
@@ -312,6 +313,8 @@ const STAFF=[
 
 // People who can cover any topic (shown in the bottom section)
 const ANY_TOPIC_NAMES=["Nicola Ayan","Kevin Li","Zach Coulter","Phil Yates","Rob Folan","Chris Vafiadis"];
+// These two cover literally anything; everyone else below is scoped to the 9 booth topics
+const ANY_TOPIC_UNLIMITED=["Nicola Ayan","Kevin Li"];
 
 const SCHED=[
   {day:"Mon, Aug 31",time:"8:00 AM – 6:00 PM",what:"Registration",status:"N/A",note:""},
@@ -342,7 +345,8 @@ const TOPIC_KW={
   "Autonomous Optimization":["autonomous optimization"],
   "Virtual Teammates":["virtual teammates","vts"],
   "Agentic Content Operations":["content operat","content ops"],
-  "Agent Building":["agent building","agent platform"],
+  "Agent Platform":["agent platform"],
+  "Agent Building":["agent building","agent builder","build agents"],
   "Opti on Opti":["opti on opti"],
   "Opal U":["opal u"],
   "CMS":["cms"],
@@ -491,7 +495,10 @@ function render(){
   // Any-topic experts
   const anyTopicList=ANY_TOPIC_NAMES.map(n=>STAFF.find(s=>s.name===n)).filter(Boolean);
   const flEl=document.getElementById('floater-list');
-  if(flEl){flEl.innerHTML=anyTopicList.map(f=>`<span class="inline-flex items-center gap-1.5 text-xs bg-white text-[#0D3A29] px-3 py-1.5 rounded-lg border border-[#D8E4CB] font-semibold shadow-sm cursor-pointer hover:border-[#ABFF44] transition-all" onclick="openModal('${esc(f.name)}')">👤 ${esc(f.name)}<span class="text-slate-400 font-normal text-[10px]">· ${esc(f.title)}</span></span>`).join('');}
+  if(flEl){flEl.innerHTML=anyTopicList.map(f=>{
+    const badge=ANY_TOPIC_UNLIMITED.includes(f.name)?'':`<span class="text-[9px] leading-tight bg-[#EFF6E9] text-[#0D3A29] border border-[#D8E4CB] font-bold px-1.5 py-0.5 rounded">Any of the topics across the 9 booths</span>`;
+    return`<span class="inline-flex flex-wrap items-center gap-1.5 max-w-full text-xs bg-white text-[#0D3A29] px-3 py-1.5 rounded-lg border border-[#D8E4CB] font-semibold shadow-sm cursor-pointer hover:border-[#ABFF44] transition-all" onclick="openModal('${esc(f.name)}')">👤 ${esc(f.name)}<span class="text-slate-400 font-normal text-[10px]">· ${esc(f.title)}</span>${badge}</span>`;
+  }).join('');}
 }
 
 // ============================================================
