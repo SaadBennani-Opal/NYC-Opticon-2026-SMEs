@@ -206,15 +206,15 @@ const BOOTHS=[
 ];
 
 const OTHER_TOPICS=[
-  {topic:"Opti on Opti",desc:"How we run Optimizely on Optimizely — our own stack, live.",kw:["opti on opti","dogfooding","our own site"]},
-  {topic:"Opal U",desc:"Opal University — enablement, training, and certification.",kw:["opal u","opal university","training","enablement"]},
-  {topic:"CMS",desc:"Content Management System — SaaS CMS and CMS 12.",kw:["cms","saas cms","cms 12","headless","content management"]},
-  {topic:"Sitecore",desc:"Sitecore competitive and migration plays.",kw:["sitecore","contentstack","contentful","adobe","migration","displacement"]},
-  {topic:"Verticalization",desc:"Industry and vertical-specific playbooks.",kw:["verticalization","vertical","industries","regulated","financial services","healthcare","manufacturing"]},
-  {topic:"CMP",desc:"Content Marketing Platform — planning, briefs, workflow.",kw:["cmp","content marketing platform","campaign planning","workflow"]},
-  {topic:"Commerce",desc:"Configured Commerce, Commerce Connect, and PIM.",kw:["commerce","configured commerce","b2b commerce","pim","catalog"]},
-  {topic:"Analytics & Data Platform",desc:"ODP, behavioral analytics, warehouse-native (Netspring).",kw:["analytics","odp","data platform","netspring","reporting"]},
-  {topic:"Product Roadmap & Strategy",desc:"Where the platform is headed.",kw:["roadmap","strategy","product direction","vision"]},
+  {topic:"Opti on Opti",desc:"How we run Optimizely on Optimizely — our own stack, live.",kw:["opti on opti","dogfooding","our own site"],color:"#007B79"},
+  {topic:"Opal U",desc:"Opal University — enablement, training, and certification.",kw:["opal u","opal university","training","enablement"],color:"#197050"},
+  {topic:"CMS",desc:"Content Management System — SaaS CMS and CMS 12.",kw:["cms","saas cms","cms 12","headless","content management"],color:"#8F4764"},
+  {topic:"Sitecore",desc:"Sitecore competitive and migration plays.",kw:["sitecore","contentstack","contentful","adobe","migration","displacement"],color:"#007B79"},
+  {topic:"Verticalization",desc:"Industry and vertical-specific playbooks.",kw:["verticalization","vertical","industries","regulated","financial services","healthcare","manufacturing"],color:"#197050"},
+  {topic:"CMP",desc:"Content Marketing Platform — planning, briefs, workflow.",kw:["cmp","content marketing platform","campaign planning","workflow"],color:"#0D3A29"},
+  {topic:"Commerce",desc:"Configured Commerce, Commerce Connect, and PIM.",kw:["commerce","configured commerce","b2b commerce","pim","catalog"],color:"#8F4764"},
+  {topic:"Analytics & Data Platform",desc:"ODP, behavioral analytics, warehouse-native (Netspring).",kw:["analytics","odp","data platform","netspring","reporting"],color:"#197050"},
+  {topic:"Product Roadmap & Strategy",desc:"Where the platform is headed.",kw:["roadmap","strategy","product direction","vision"],color:"#007B79"},
 ];
 
 const STAFF=[
@@ -240,7 +240,7 @@ const STAFF=[
   {name:"Julia Maguire",title:"Integrated Marketing & AI Innovation Director",role:"SME",where:"Roaming",topics:["Opti on Opti"],notes:"Speaker: No Account Left Behind — 12:00-12:30, Agent Lodge"},
   {name:"Michiel Dorjee",title:"Director, AI Innovation & Digital Marketing",role:"SME",where:"Roaming",topics:["Opti on Opti","Limitless 1:1 Personalization","Agent Building"],notes:"Speaker: No Account Left Behind 12:00 + Never Stop Optimizing 2:45, Agent Lodge"},
   {name:"Nelson Hong",title:"Solution Strategy Director",role:"SME",where:"Roaming",topics:["CMS","Sitecore"],notes:"Track lead — The Bonfire"},
-  {name:"Nicola Ayan",title:"VP, Solution Strategy",role:"SME",where:"Roaming",topics:["Any topic"],notes:"Floater for any topic"},
+  {name:"Nicola Ayan",title:"VP, Solution Strategy",role:"SME",where:"Roaming",topics:["Any topic", "Sitecore"],notes:"Floater for any topic"},
   {name:"Phil Yates",title:"Strategic Solution Architect",role:"Floater",where:"Roaming",topics:["Agent Experience","Agent Visibility","Agent-Ready Experiences","Limitless 1:1 Personalization","Agentic Experimentation","Autonomous Optimization","Virtual Teammates","Agentic Content Operations","Agent Building"],notes:"Backup floater"},
   {name:"Rob Folan",title:"Senior Director, Solution Architecture",role:"Floater",where:"Roaming",topics:["Agent Experience","Agent Visibility","Agent-Ready Experiences","Limitless 1:1 Personalization","Agentic Experimentation","Autonomous Optimization","Virtual Teammates","Agentic Content Operations","Agent Building"],notes:"Backup floater"},
   {name:"Sally Bolig",title:"Principal Enablement Manager",role:"SME",where:"Roaming",topics:["Agent Platform Enablement"],notes:"Solution Strategy — Opal"},
@@ -261,7 +261,7 @@ const STAFF=[
   {name:"Francesco Montesanto",title:"Senior SEO GEO Manager",role:"SME",where:"Roaming",topics:["Agent-Ready Experiences","Opti on Opti"],notes:"Speaker: Solve Your Visibility Problem — 2:00-2:30, Agent Lodge"},
   {name:"Giulia Camargo",title:"Contingent Worker — Brand & Design",role:"SME",where:"Roaming",topics:["Opal U"],notes:""},
   {name:"Greg Heinz",title:"Senior Director, Marketing",role:"SME",where:"Roaming",topics:["Opti on Opti"],notes:"Speaker: The 'M' Word — 12:15-12:30, Tent Talks"},
-  {name:"Haley Williams",title:"Director, Communications",role:"SME",where:"Roaming",topics:["Sitecore","Adobe","ContentStack","Contentful","Statsig (Competitive Intel)"],notes:"Legal name: Lauren Williams"},
+  {name:"Haley Williams",title:"Director, Communications",role:"SME",where:"Roaming",topics:["Sitecore","Adobe","ContentStack","Contentful","Statsig (Competitive Intel)"],notes:""},
   {name:"Imran Yousuf",title:"VP, Software Engineering",role:"SME",where:"Roaming",topics:["Agent Platform","CMP"],notes:"Speaker: What we're building next — 1:00-1:30, Exec Summit"},
   {name:"Jean Tsong",title:"Senior Product Manager",role:"SME",where:"Roaming",topics:["Commerce","Content and Product Recommendations"],notes:""},
   {name:"Jordan Stecker",title:"Manager, Global Customer Communities",role:"SME",where:"Roaming",topics:["Community SME"],notes:"Track lead — Exec Summit"},
@@ -458,14 +458,20 @@ function render(){
     const experts=getSMEs(ot.topic,[]);
     const qOk=!q||ot.topic.toLowerCase().includes(q)||ot.desc.toLowerCase().includes(q)||ot.kw.some(k=>k.includes(q))||experts.some(p=>p.name.toLowerCase().includes(q));
     if(!catOk||!qOk)return'';
-    return`<div class="bg-white rounded-xl shadow-sm border border-[#D8E4CB] p-4 flex flex-col justify-between card-hover">
+    return`<div class="bg-white rounded-xl shadow-sm border border-[#D8E4CB] overflow-hidden flex flex-col card-hover">
+      <div class="px-4 py-3 flex justify-between items-center" style="background:${ot.color||'#007B79'}">
+        <h4 class="text-sm font-bold text-white">${esc(ot.topic)}</h4>
+        <span class="text-[9px] uppercase font-bold text-white/70 bg-black/20 px-2 py-0.5 rounded-full whitespace-nowrap">No Station</span>
+      </div>
+      <div class="p-4 flex-1 flex flex-col justify-between">
       <div>
-        <div class="flex justify-between items-start"><h4 class="text-base font-bold text-[#0D3A29]">${esc(ot.topic)}</h4><span class="text-[9px] uppercase font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">No Station</span></div>
-        <p class="text-xs text-slate-600 mt-1 leading-relaxed">${esc(ot.desc)}</p>
+        <p class="text-xs text-slate-600 leading-relaxed">${esc(ot.desc)}</p>
       </div>
       <div class="pt-3 mt-3 border-t border-slate-100 space-y-2">
         ${experts.length?`<div><span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1">Experts available:</span><div class="flex flex-wrap gap-1">${experts.map(p=>personChip(p.name,p.role==='Floater')).join('')}</div></div>`:'<span class="text-xs text-slate-400">No experts currently assigned.</span>'}
         <div class="flex flex-wrap gap-1">${ot.kw.slice(0,3).map(k=>`<span class="text-[9px] bg-slate-50 text-slate-400 px-1.5 py-0.5 rounded">#${k}</span>`).join('')}</div>
+      </div>
+      </div>
       </div>
     </div>`;
   }).join('');
