@@ -1,0 +1,555 @@
+
+
+
+
+
+Opticon 2026 — SME & Booth Finder
+
+
+  body { font-family: 'Arial', sans-serif; }
+  .card-hover:hover { box-shadow: 0 4px 20px rgba(13,58,41,0.12); transform: translateY(-1px); transition: all 0.15s ease; }
+  .pill-active { background:#0D3A29; color:#fff; }
+  .pill-inactive { background:#f8faf7; color:#374151; border:1px solid #D8E4CB; }
+  .pill-inactive:hover { background:#EFF6E9; }
+  .tag { background:#EFF6E9; color:#0D3A29; border:1px solid #D8E4CB; font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px; }
+  .tag-floater { background:#dbeafe; color:#1d4ed8; font-size:9px; font-weight:700; padding:1px 4px; border-radius:3px; }
+  .kicker { width:4px; height:28px; background:#ABFF44; border-radius:2px; display:inline-block; margin-right:10px; vertical-align:middle; }
+  .cluster-ax { background:linear-gradient(135deg,#064e3b,#134e4a); }
+  .cluster-cx { background:linear-gradient(135deg,#1e1b4b,#312e81); }
+  .cluster-mx { background:linear-gradient(135deg,#0f172a,#064e3b); }
+  tr:hover td { background: rgba(239,246,233,0.5); }
+  .modal-overlay { position:fixed;inset:0;background:rgba(15,23,42,0.6);backdrop-filter:blur(4px);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px; }
+  .hidden { display:none!important; }
+  input:focus, select:focus { outline:none; box-shadow:0 0 0 2px #0D3A29; }
+
+
+
+
+
+
+  
+    
+      
+      
+        Opticon 2026 — SME & Booth Finder
+        Internal On-Floor Connector · New York City
+      
+    
+    
+      Booth Finder
+      Expert Directory
+      Booth Map
+      Schedule
+    
+  
+
+
+
+
+  
+    
+    Tip: Bring customers straight to the booth — no appointment needed.
+  
+
+
+
+
+
+
+  
+    🔎 Ask-An-Expert Search
+    
+      
+        
+        🔍
+      
+      Clear
+    
+    
+      All
+      Agent Platform
+      Agentic CMS
+      Agentic Exp / Personalization
+      Other Product SMEs
+      Industries
+      Opti on Opti & Marketing
+    
+  
+
+  Demo Basecamp Stations
+  
+
+  Roaming & Off-Booth Subjects
+  
+
+  
+    
+      Floaters
+      Available for any topic
+    
+    Grab these roaming experts if a booth is busy or the topic has no dedicated station.
+    
+  
+
+
+
+
+  
+    
+      On-Floor Experts List
+      All 73 registered Optimizely SMEs
+    
+    
+      15Booth SMEs
+      12Floaters
+      46Other SMEs
+    
+  
+  
+    
+      
+      🔍
+    
+    
+      All Specialties
+      Agent Platform
+      Agentic CMS
+      Agentic Exp / Personalization
+      Other Product SMEs
+      Industries
+      Opti on Opti & Marketing
+    
+  
+  
+    
+      
+        
+          NameTitleRoleLocationTopics
+        
+        
+      
+    
+  
+
+
+
+
+  
+    Basecamp Physical Layout
+    
+    
+      Floor Plan — Blue Circles = SME Stations
+      
+        
+        Floor plan image — download from the repo or view the PDF.
+      
+    
+  
+
+
+
+
+  
+    Opticon 2026 Timeline & Logistics
+    Grey rows = Basecamp closed (general sessions). No booth staffing during those windows.
+    
+      
+        
+          DayTimeEventBoothsNotes
+        
+        
+      
+    
+  
+
+
+
+
+
+
+  
+    
+      
+        
+          
+          
+          
+        
+        ✕
+      
+    
+    
+      Location
+      Topics
+      Sessions & Notes
+    
+    
+      Close
+    
+  
+
+
+
+// ============================================================
+// DATA
+// ============================================================
+const BOOTHS=[
+  {cluster:"AX",station:1,topic:"Agent Experience",tagline:"Modernize for AI. Capture agent-driven demand.",primary:["Marvin Oey","David Knipe"],kw:["agent experience","ax","agentic commerce","ai traffic"]},
+  {cluster:"AX",station:2,topic:"Agent Visibility",tagline:"See what AI sees. Then take action.",primary:["Ted Charles"],kw:["agent visibility","llm visibility","ai visibility","brand in ai"]},
+  {cluster:"AX",station:3,topic:"Agent-Ready Experiences",tagline:"Help AI find, understand, and recommend your brand.",primary:["Tim Gardner"],kw:["agent-ready","ai seo","geo","discoverability","findability"]},
+  {cluster:"CX",station:1,topic:"Limitless 1:1 Personalization",tagline:"Every customer gets their best experience.",primary:["Kunal Shetye","Patrick Kirby"],kw:["personalization","1:1","limitless","abm","audiences"]},
+  {cluster:"CX",station:2,topic:"Agentic Experimentation",tagline:"From idea to impact in hours, not weeks.",primary:["Natalie Fritz","Sarah Stuchbery"],kw:["experimentation","a/b testing","agentic experimentation","web experimentation","feature experimentation","fx","wx"]},
+  {cluster:"CX",station:3,topic:"Autonomous Optimization",tagline:"Optimization that runs itself.",primary:["Rob Saunders","Tom Defeo"],kw:["autonomous optimization","always-on","bandits","conversion lift"]},
+  {cluster:"MX",station:1,topic:"Virtual Teammates",tagline:"Real members of your marketing team.",primary:["James Stout","Wendy Derstine"],kw:["vts","virtual teammates","ai teammates","marketing agents"]},
+  {cluster:"MX",station:2,topic:"Agentic Content Operations",tagline:"Brief in. Live experience out.",primary:["Dan O'Neil"],kw:["content ops","content operations","cmp","briefs","content workflow"]},
+  {cluster:"MX",station:3,topic:"Agent Building",tagline:"Create, manage and scale your AI agents. No dev required.",primary:["Mark Slade","Rui Wang"],kw:["agent building","build agents","no-code","agent builder","opal agents"]},
+];
+
+const OTHER_TOPICS=[
+  {topic:"Opti on Opti",desc:"How we run Optimizely on Optimizely — our own stack, live.",kw:["opti on opti","dogfooding","our own site"]},
+  {topic:"Opal U",desc:"Opal University — enablement, training, and certification.",kw:["opal u","opal university","training","enablement"]},
+  {topic:"CMS",desc:"Content Management System — SaaS CMS and CMS 12.",kw:["cms","saas cms","cms 12","headless","content management"]},
+  {topic:"Sitecore",desc:"Sitecore competitive and migration plays.",kw:["sitecore","contentstack","contentful","adobe","migration","displacement"]},
+  {topic:"Verticalization",desc:"Industry and vertical-specific playbooks.",kw:["verticalization","vertical","industries","regulated","financial services","healthcare","manufacturing"]},
+  {topic:"CMP",desc:"Content Marketing Platform — planning, briefs, workflow.",kw:["cmp","content marketing platform","campaign planning","workflow"]},
+  {topic:"Commerce",desc:"Configured Commerce, Commerce Connect, and PIM.",kw:["commerce","configured commerce","b2b commerce","pim","catalog"]},
+  {topic:"Analytics & Data Platform",desc:"ODP, behavioral analytics, warehouse-native (Netspring).",kw:["analytics","odp","data platform","netspring","reporting"]},
+  {topic:"Product Roadmap & Strategy",desc:"Where the platform is headed.",kw:["roadmap","strategy","product direction","vision"]},
+];
+
+const STAFF=[
+  {name:"Dan O'Neil",title:"Lead Solution Architect",role:"Booth SME",where:"MX · Station 2",topics:["Agentic Content Operations"],notes:""},
+  {name:"David Knipe",title:"Strategic Solution Architect",role:"Booth SME",where:"AX · Station 1",topics:["Agent Experience"],notes:""},
+  {name:"James Stout",title:"Lead Solution Architect",role:"Booth SME",where:"MX · Station 1",topics:["Virtual Teammates"],notes:""},
+  {name:"Kunal Shetye",title:"Principal Solution Architect",role:"Booth SME",where:"CX · Station 1",topics:["Limitless 1:1 Personalization"],notes:""},
+  {name:"Mark Slade",title:"Senior Solution Architect",role:"Booth SME",where:"MX · Station 3",topics:["Agent Building"],notes:""},
+  {name:"Marvin Oey",title:"Principal Solution Architect",role:"Booth SME",where:"AX · Station 1",topics:["Agent Experience"],notes:""},
+  {name:"Natalie Fritz",title:"Senior Customer Success Manager",role:"Booth SME",where:"CX · Station 2",topics:["Agentic Experimentation"],notes:""},
+  {name:"Patrick Kirby",title:"Senior Solution Architect",role:"Booth SME",where:"CX · Station 1",topics:["Limitless 1:1 Personalization"],notes:""},
+  {name:"Rob Saunders",title:"Senior Solution Architect",role:"Booth SME",where:"CX · Station 3",topics:["Autonomous Optimization"],notes:""},
+  {name:"Rui Wang",title:"Solution Architect",role:"Booth SME",where:"MX · Station 3",topics:["Agent Building"],notes:""},
+  {name:"Sarah Stuchbery",title:"Senior Solution Architect",role:"Booth SME",where:"CX · Station 2",topics:["Agentic Experimentation"],notes:""},
+  {name:"Ted Charles",title:"Lead Solution Architect",role:"Booth SME",where:"AX · Station 2",topics:["Agent Visibility"],notes:""},
+  {name:"Tim Gardner",title:"Senior Solution Architect",role:"Booth SME",where:"AX · Station 3",topics:["Agent-Ready Experiences"],notes:""},
+  {name:"Tom Defeo",title:"Senior Solution Architect",role:"Booth SME",where:"CX · Station 3",topics:["Autonomous Optimization"],notes:""},
+  {name:"Wendy Derstine",title:"Lead Solution Architect",role:"Booth SME",where:"MX · Station 1",topics:["Virtual Teammates"],notes:""},
+  {name:"April Henderson",title:"Solution Strategy Director",role:"Floater",where:"Roaming",topics:["Verticalization","Industries"],notes:"Track lead — The Trailhead"},
+  {name:"Chris Vafiadis",title:"Senior Director, Solution Architecture",role:"Floater",where:"Roaming",topics:["Any topic"],notes:"Backup floater"},
+  {name:"Darcey Lachtman",title:"Solution Strategy Director",role:"Floater",where:"Roaming",topics:["Agentic Experimentation"],notes:"Track lead — The Outpost"},
+  {name:"Joe Timko",title:"VP, Software Engineering",role:"Floater",where:"Roaming",topics:["Analytics & Data Platform"],notes:"SME for warehouse-native analytics (Netspring)"},
+  {name:"Julia Maguire",title:"Integrated Marketing & AI Innovation Director",role:"Floater",where:"Roaming",topics:["Opti on Opti"],notes:"Speaker: No Account Left Behind — 12:00-12:30, Agent Lodge"},
+  {name:"Michiel Dorjee",title:"Director, AI Innovation & Digital Marketing",role:"Floater",where:"Roaming",topics:["Opti on Opti","Limitless 1:1 Personalization","Agent Building"],notes:"Speaker: No Account Left Behind 12:00 + Never Stop Optimizing 2:45, Agent Lodge"},
+  {name:"Nelson Hong",title:"Solution Strategy Director",role:"Floater",where:"Roaming",topics:["CMS","Sitecore"],notes:"Track lead — The Bonfire"},
+  {name:"Nicola Ayan",title:"VP, Solution Strategy",role:"Floater",where:"Roaming",topics:["Any topic"],notes:"Floater for any topic"},
+  {name:"Phil Yates",title:"Strategic Solution Architect",role:"Floater",where:"Roaming",topics:["Any topic"],notes:"Backup floater"},
+  {name:"Rob Folan",title:"Senior Director, Solution Architecture",role:"Floater",where:"Roaming",topics:["Any topic"],notes:"Backup floater"},
+  {name:"Sally Bolig",title:"Principal Enablement Manager",role:"Floater",where:"Roaming",topics:["Agent Platform Enablement"],notes:"Solution Strategy — Opal"},
+  {name:"Zach Coulter",title:"Director, Solution Architecture",role:"Floater",where:"Roaming",topics:["Any topic"],notes:"Backup floater"},
+  {name:"Alex Whitney",title:"Principal Product Manager",role:"SME",where:"Roaming",topics:["Commerce","Analytics & Data Platform"],notes:""},
+  {name:"Ali Hart",title:"Product Marketing Director",role:"SME",where:"Roaming",topics:["Agent Platform T1 Releases"],notes:""},
+  {name:"Amit Shimsi",title:"Principal Product Manager",role:"SME",where:"Roaming",topics:["Virtual Teammates"],notes:"Speaker: Hire Your Virtual Teammate — 11:15-11:45, Agent Lodge"},
+  {name:"Aniel Sud",title:"Chief Technology Officer",role:"SME",where:"Roaming",topics:["CMS"],notes:""},
+  {name:"Anna Pleshakova",title:"Senior Manager, Product Management",role:"SME",where:"Roaming",topics:["CMS"],notes:"Speaker: Humans or AI? 12:00-12:30 Bonfire + Solve Your Visibility Problem 2:00-2:30 Agent Lodge"},
+  {name:"Anthony Aiosa",title:"VP, Product Marketing",role:"SME",where:"Roaming",topics:["Opti on Opti","Limitless 1:1 Personalization","Agent Building","Product Roadmap & Strategy"],notes:""},
+  {name:"Audrey Hungerman",title:"Director, Customer Success",role:"SME",where:"Roaming",topics:["Agentic Experimentation"],notes:"Speaker: The 'M' Word (TBC) — 12:15-12:30, Tent Talks"},
+  {name:"Bri Morgaine",title:"Senior Product Marketing Manager",role:"SME",where:"Roaming",topics:["CMS","Agent Visibility"],notes:""},
+  {name:"Britt Hall",title:"VP, Product",role:"SME",where:"Roaming",topics:["Agentic Experimentation"],notes:"Speaker: Never Stop Optimizing — 2:45-3:15, Agent Lodge"},
+  {name:"Brittany Butler",title:"Senior Manager, Product Management",role:"SME",where:"Roaming",topics:["Commerce","Analytics & Data Platform"],notes:""},
+  {name:"Cory Liebgott",title:"VP, Product",role:"SME",where:"Roaming",topics:["Commerce","Analytics & Data Platform"],notes:""},
+  {name:"Ellen Ritmeester",title:"VP, Marketing",role:"SME",where:"Roaming",topics:["Opti on Opti"],notes:"Speaker: AI Is Changing Faster Than Your Org Chart — 2:00-2:30, The Bonfire"},
+  {name:"Filip Langewolf",title:"Senior Content Marketing Manager",role:"SME",where:"Roaming",topics:["Content Marketing SME"],notes:"Track lead — Tent Talks"},
+  {name:"Francesco Montesanto",title:"Senior SEO GEO Manager",role:"SME",where:"Roaming",topics:["Agent-Ready Experiences","Opti on Opti"],notes:"Speaker: Solve Your Visibility Problem — 2:00-2:30, Agent Lodge"},
+  {name:"Giulia Camargo",title:"Contingent Worker — Brand & Design",role:"SME",where:"Roaming",topics:["Opal U"],notes:""},
+  {name:"Greg Heinz",title:"Senior Director, Marketing",role:"SME",where:"Roaming",topics:["Opti on Opti"],notes:"Speaker: The 'M' Word — 12:15-12:30, Tent Talks"},
+  {name:"Haley Williams",title:"Director, Communications",role:"SME",where:"Roaming",topics:["Sitecore","Adobe","ContentStack","Contentful","Statsig (Competitive Intel)"],notes:"Legal name: Lauren Williams"},
+  {name:"Imran Yousuf",title:"VP, Software Engineering",role:"SME",where:"Roaming",topics:["Agent Platform","CMP"],notes:"Speaker: What we're building next — 1:00-1:30, Exec Summit"},
+  {name:"Jean Tsong",title:"Senior Product Manager",role:"SME",where:"Roaming",topics:["Commerce","Content and Product Recommendations"],notes:""},
+  {name:"Jordan Stecker",title:"Manager, Global Customer Communities",role:"SME",where:"Roaming",topics:["Community SME"],notes:"Track lead — Exec Summit"},
+  {name:"Josh Holt",title:"Principal Product Manager",role:"SME",where:"Roaming",topics:["Agentic Experimentation","Agentic Personalization"],notes:"Speaker: AI Runs the Tests — 2:45-3:15, The Bonfire"},
+  {name:"Julianne DeVincenzo",title:"Senior Manager, Content Marketing",role:"SME",where:"Roaming",topics:["Content Marketing SME"],notes:"Speaker: Humanity Is The Premium Layer — 11:15-11:45, The Bonfire"},
+  {name:"Kevin Li",title:"SVP, Product",role:"SME",where:"Roaming",topics:["Virtual Teammates","Agent Visibility","Product Roadmap & Strategy"],notes:"Speaker: What we're building next — 1:00-1:30, Exec Summit"},
+  {name:"Lauren Brennan",title:"Senior Manager, Product Marketing",role:"SME",where:"Roaming",topics:["Agentic Experimentation"],notes:"Speaker: AI Runs the Tests — 2:45-3:15, The Bonfire"},
+  {name:"Lauren Hammarstedt",title:"VP, Product",role:"SME",where:"Roaming",topics:["Agent Platform","Virtual Teammates","Agent Building"],notes:""},
+  {name:"Mario Oliver",title:"Senior Product Manager",role:"SME",where:"Roaming",topics:["CMS"],notes:"Speaker support: Who Are You Really Marketing To — 12:00-12:30, The Bonfire"},
+  {name:"Mark Wakelin",title:"Director, Strategy & Value",role:"SME",where:"Roaming",topics:["Industries","Verticalization","Personalization"],notes:"Speaker: The Best Page on Your Website Doesn't Exist Yet — 3:00-3:15, Tent Talks"},
+  {name:"Mike Chu",title:"Senior Onboarding Solutions Architect",role:"SME",where:"Roaming",topics:["Agentic Experimentation (Technical FX, WX)"],notes:"Experimentation SWAT — WX & FX technical expert"},
+  {name:"Mona Chen",title:"Senior Product Manager",role:"SME",where:"Roaming",topics:["Virtual Teammates"],notes:""},
+  {name:"Nazanin Ramezani",title:"VP, Product",role:"SME",where:"Roaming",topics:["Agent Visibility","CMS"],notes:""},
+  {name:"Neil Mullarkey",title:"Principal Product Manager",role:"SME",where:"Roaming",topics:["CMP"],notes:""},
+  {name:"Nikita Bokil",title:"Senior Principal Product Manager",role:"SME",where:"Roaming",topics:["Agent Platform","Agent Building"],notes:"Speaker: AI Needs to Be Lazier — 11:15-11:30, Tent Talks"},
+  {name:"Peter Ten Eyck",title:"Manager, Strategy & Value",role:"SME",where:"Roaming",topics:["Agentic Industries","AI/Value Workshops"],notes:"Speaker: What 154,000 Experiments Taught Us About AI — 2:00-2:30, The Outpost"},
+  {name:"Ricki Lawal",title:"Digital Marketing Director",role:"SME",where:"Roaming",topics:["Virtual Teammates","Campaign Marketing SME"],notes:"Speaker: Hire Your Virtual Teammate — 11:15-11:45, Agent Lodge"},
+  {name:"Rob Driscoll",title:"Director, Product Management",role:"SME",where:"Roaming",topics:["CMP"],notes:""},
+  {name:"Rupali Jain",title:"Chief Product Officer",role:"SME",where:"Roaming",topics:["Product Roadmap & Strategy","Agentic Experimentation and Personalization"],notes:""},
+  {name:"Saad Bennani",title:"Senior Solution Strategist",role:"SME",where:"Roaming",topics:["Agent Platform (VTs, Limitless, Agent Building)"],notes:""},
+  {name:"Sara Winter",title:"Principal Product Manager",role:"SME",where:"Roaming",topics:["Commerce","Analytics & Data Platform"],notes:""},
+  {name:"Sarah Ager",title:"Senior Product Marketing Manager",role:"SME",where:"Roaming",topics:["Agentic Experimentation"],notes:""},
+  {name:"Sathya Narayanan",title:"Senior Director, Product Management",role:"SME",where:"Roaming",topics:["Agentic Experimentation","Analytics & Data Platform"],notes:"Speaker: Agentic FX roundtable — 2:35-3:20, Room 403"},
+  {name:"Shaf Islam",title:"President",role:"SME",where:"Roaming",topics:["Product Roadmap & Strategy","Agent Platform"],notes:"Speaker: What we're building next — 1:00-1:30, Exec Summit"},
+  {name:"Sharatul Hasmi",title:"Product Manager",role:"SME",where:"Roaming",topics:["Agentic Experimentation"],notes:""},
+  {name:"Simon Chapman",title:"VP, Enablement",role:"SME",where:"Roaming",topics:["Partner Enablement"],notes:""},
+  {name:"Simone Araujo Coelho",title:"Managing Principal Enterprise Architect",role:"SME",where:"Roaming",topics:["Agentic Experimentation","Agentic Personalization","Commerce"],notes:"Speaker: Retail personalization live build — 11:15-12:00, Room 403"},
+  {name:"Stella Zang",title:"Associate Product Manager",role:"SME",where:"Roaming",topics:["Opal U"],notes:""},
+  {name:"Tara Corey",title:"SVP, Marketing",role:"SME",where:"Roaming",topics:["Marketing SME"],notes:"Speaker: Vision first, playbook second — 11:15-12:15, Exec Summit"},
+  {name:"Tina Nelson",title:"Senior Product Strategy Director",role:"SME",where:"Roaming",topics:["Product Roadmap & Strategy"],notes:""},
+  {name:"Trevor Pope",title:"Lead Consultant, Strategy & Value",role:"SME",where:"Roaming",topics:["Commerce","AI/Value Workshops"],notes:"Speaker: What Governed AI Looks Like in B2B Commerce — 2:45-3:15, The Trailhead"},
+  {name:"Zahid Zahiduzzaman",title:"Director, Software Engineering",role:"SME",where:"Roaming",topics:["Agent Platform","CMP"],notes:""},
+];
+
+const SCHED=[
+  {day:"Mon, Aug 31",time:"8:00 AM – 6:00 PM",what:"Registration",status:"N/A",note:""},
+  {day:"Mon, Aug 31",time:"12:00 PM – 1:00 PM",what:"PAB (Invitation Only)",status:"N/A",note:""},
+  {day:"Mon, Aug 31",time:"12:00 PM – 4:00 PM",what:"Partner Forum",status:"N/A",note:""},
+  {day:"Mon, Aug 31",time:"1:00 PM – 3:30 PM",what:"Booth Move-In",status:"N/A",note:""},
+  {day:"Mon, Aug 31",time:"4:00 PM – 6:00 PM",what:"Welcome Reception in Basecamp",status:"STAFFED",note:"First opportunity at booths. Heavily attended — expect high traffic."},
+  {day:"Tue, Sep 1",time:"7:30 AM – 7:00 PM",what:"Registration",status:"N/A",note:""},
+  {day:"Tue, Sep 1",time:"7:40 AM – 8:45 AM",what:"Breakfast & Networking",status:"STAFFED",note:"Booths open. Good window for relaxed early conversations."},
+  {day:"Tue, Sep 1",time:"8:45 AM – 10:30 AM",what:"Opening General Session",status:"CLOSED",note:"Basecamp CLOSED — no booth staffing. Grab a floater."},
+  {day:"Tue, Sep 1",time:"10:30 AM – 11:15 AM",what:"Networking Break",status:"STAFFED",note:"Booths reopen — prime time as attendees leave the session."},
+  {day:"Tue, Sep 1",time:"11:15 AM – 12:30 PM",what:"Sessions",status:"STAFFED",note:"Booths open."},
+  {day:"Tue, Sep 1",time:"12:30 PM – 2:00 PM",what:"Lunch & Networking",status:"STAFFED",note:"Booths open. High foot traffic around demo area."},
+  {day:"Tue, Sep 1",time:"2:00 PM – 3:15 PM",what:"Sessions",status:"STAFFED",note:"Booths open."},
+  {day:"Tue, Sep 1",time:"3:15 PM – 3:45 PM",what:"Networking Break",status:"STAFFED",note:"Booths open."},
+  {day:"Tue, Sep 1",time:"3:45 PM – 5:30 PM",what:"Closing General Session",status:"CLOSED",note:"Basecamp CLOSED — no booth staffing."},
+  {day:"Tue, Sep 1",time:"5:30 PM – 7:00 PM",what:"Closing Reception in Basecamp",status:"STAFFED",note:"Last opportunity at booths. Heavily attended."},
+  {day:"Tue, Sep 1",time:"7:00 PM – 7:30 PM",what:"Booth Move-Out",status:"N/A",note:""},
+  {day:"Tue, Sep 1",time:"9:00 PM – 11:00 PM",what:"Afterparty",status:"N/A",note:""},
+];
+
+const TOPIC_KW={
+  "Agent Experience":["agent experience"],
+  "Agent Visibility":["agent visibility"],
+  "Agent-Ready Experiences":["agent-ready","geo","discoverability"],
+  "Limitless 1:1 Personalization":["limitless","personalization"],
+  "Agentic Experimentation":["experimentation"],
+  "Autonomous Optimization":["autonomous optimization"],
+  "Virtual Teammates":["virtual teammates","vts"],
+  "Agentic Content Operations":["content operat","content ops"],
+  "Agent Building":["agent building","agent platform"],
+  "Opti on Opti":["opti on opti"],
+  "Opal U":["opal u"],
+  "CMS":["cms"],
+  "Sitecore":["sitecore","contentstack","contentful","adobe"],
+  "Verticalization":["verticalization","industries"],
+  "CMP":["cmp","content marketing platform"],
+  "Commerce":["commerce"],
+  "Analytics & Data Platform":["analytics","data platform","odp","netspring"],
+  "Product Roadmap & Strategy":["roadmap","strategy"],
+};
+
+const CLUSTER_COLORS={AX:"cluster-ax",CX:"cluster-cx",MX:"cluster-mx"};
+const CLUSTER_NAMES={AX:"AX — Agent Experience",CX:"CX — Customer Experience",MX:"MX — Marketing Experience"};
+const CLUSTER_POS={AX:"Top Cluster",CX:"Middle Cluster",MX:"Bottom Cluster"};
+
+// ============================================================
+// HELPERS
+// ============================================================
+let currentFilter='all';
+
+function getSMEs(topicName,exclude=[]){
+  const kws=(TOPIC_KW[topicName]||[topicName.toLowerCase()]);
+  return STAFF.filter(p=>!exclude.includes(p.name))
+    .filter(p=>p.role!=='Booth SME')
+    .filter(p=>{
+      const t=p.topics.join(', ').toLowerCase();
+      const anyOnly=p.topics.every(x=>x.toLowerCase().trim()==='any topic');
+      if(anyOnly)return false;
+      return kws.some(k=>t.includes(k));
+    });
+}
+
+function matchesCat(topics,role,where,cat){
+  if(cat==='all')return true;
+  const t=topics.join(', ').toLowerCase();
+  const w=(where||'').toLowerCase();
+  if(cat==='platform')return t.includes('agent platform')||t.includes('agent building')||t.includes('agent experience')||t.includes('agent visibility')||t.includes('agent-ready')||t.includes('virtual teammates')||t.includes('vts')||t.includes('opal u')||w.includes('ax')||w.includes('mx · station 1')||w.includes('mx · station 3');
+  if(cat==='cms')return t.includes('cms')||t.includes('sitecore')||t.includes('agentic content operations')||w.includes('mx · station 2');
+  if(cat==='exp')return t.includes('experimentation')||t.includes('personalization')||t.includes('optimization')||w.includes('cx');
+  if(cat==='other')return t.includes('commerce')||t.includes('cmp')||t.includes('data platform')||t.includes('analytics')||t.includes('roadmap')||t.includes('strategy');
+  if(cat==='industries')return t.includes('industries')||t.includes('verticalization')||t.includes('workshops');
+  if(cat==='marketing')return t.includes('opti on opti')||t.includes('marketing')||t.includes('content marketing')||t.includes('community')||t.includes('brand');
+  return false;
+}
+
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function personChip(name,floater=false){return`<span class="inline-flex items-center gap-1 text-xs text-slate-700 bg-slate-50 px-2 py-1 rounded border border-slate-200 cursor-pointer hover:border-[#ABFF44] transition-all" onclick="openModal('${esc(name)}')">👤 ${esc(name)}${floater?'<span class="tag-floater">floater</span>':''}</span>`;}
+function primaryChip(name){return`<span class="inline-flex items-center gap-1 text-xs bg-[#EFF6E9] text-[#0D3A29] px-2 py-1 rounded font-semibold border border-[#D8E4CB] cursor-pointer hover:border-[#0D3A29] transition-all" onclick="openModal('${esc(name)}')">👤 ${esc(name)}</span>`;}
+
+// ============================================================
+// TABS
+// ============================================================
+function showTab(tab){
+  ['finder','directory','map','schedule'].forEach(t=>{
+    document.getElementById('pane-'+t).classList.toggle('hidden',t!==tab);
+    const btn=document.getElementById('tab-'+t);
+    if(t===tab){btn.classList.add('bg-[#ABFF44]','text-[#08251A]');btn.classList.remove('text-slate-300');}
+    else{btn.classList.remove('bg-[#ABFF44]','text-[#08251A]');btn.classList.add('text-slate-300');}
+  });
+  if(tab==='directory')renderDirectory();
+  if(tab==='map')renderMap();
+  if(tab==='schedule')renderSchedule();
+}
+
+function setFilter(f){
+  currentFilter=f;
+  ['all','platform','cms','exp','other','industries','marketing'].forEach(id=>{
+    const el=document.getElementById('f-'+id);
+    if(id===f){el.classList.add('pill-active');el.classList.remove('pill-inactive');}
+    else{el.classList.remove('pill-active');el.classList.add('pill-inactive');}
+  });
+  render();
+}
+
+// ============================================================
+// RENDER FINDER
+// ============================================================
+function render(){
+  const q=(document.getElementById('search').value||'').toLowerCase();
+
+  // Booths
+  const bg=document.getElementById('booth-grid');
+  bg.innerHTML=BOOTHS.map(b=>{
+    const topicObj={topics:[b.topic],role:'',where:`${b.cluster} · Station ${b.station}`};
+    const catOk=matchesCat([b.topic],'',`${b.cluster} · Station ${b.station}`,currentFilter);
+    const qOk=!q||b.topic.toLowerCase().includes(q)||b.tagline.toLowerCase().includes(q)||b.kw.some(k=>k.includes(q))||b.primary.some(p=>p.toLowerCase().includes(q))||getSMEs(b.topic,b.primary).some(p=>p.name.toLowerCase().includes(q));
+    if(!catOk||!qOk)return'';
+    const dynamic=getSMEs(b.topic,b.primary);
+    return`<div class="bg-white rounded-xl shadow-sm border border-[#D8E4CB] overflow-hidden flex flex-col card-hover">
+      <div class="p-4 ${CLUSTER_COLORS[b.cluster]} text-white flex justify-between items-start">
+        <div><span class="text-[10px] uppercase font-bold text-[#ABFF44] bg-black/30 px-2 py-0.5 rounded-full">${esc(CLUSTER_NAMES[b.cluster])}</span><h4 class="text-base font-bold mt-1">${esc(b.topic)}</h4></div>
+        <span class="text-xs font-bold bg-white/20 px-2.5 py-1 rounded border border-white/20 whitespace-nowrap">${b.cluster} · Stn ${b.station}</span>
+      </div>
+      <div class="p-4 flex-1 flex flex-col space-y-3">
+        <p class="text-xs text-slate-600 italic">"${esc(b.tagline)}"</p>
+        <div class="pt-2 border-t border-slate-100 space-y-2">
+          <div><span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1">Stationed Staff:</span><div class="flex flex-wrap gap-1">${b.primary.map(p=>primaryChip(p)).join('')}</div></div>
+          ${dynamic.length?`<div><span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1">Also available:</span><div class="flex flex-wrap gap-1">${dynamic.map(p=>personChip(p.name,p.role==='Floater')).join('')}</div></div>`:''}
+        </div>
+        <div class="flex flex-wrap gap-1 pt-1 border-t border-slate-50">${b.kw.slice(0,4).map(k=>`<span class="text-[9px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded">#${k}</span>`).join('')}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Other topics
+  const og=document.getElementById('other-grid');
+  og.innerHTML=OTHER_TOPICS.map(ot=>{
+    const catOk=matchesCat([ot.topic],'','',currentFilter);
+    const experts=getSMEs(ot.topic,[]);
+    const qOk=!q||ot.topic.toLowerCase().includes(q)||ot.desc.toLowerCase().includes(q)||ot.kw.some(k=>k.includes(q))||experts.some(p=>p.name.toLowerCase().includes(q));
+    if(!catOk||!qOk)return'';
+    return`<div class="bg-white rounded-xl shadow-sm border border-[#D8E4CB] p-4 flex flex-col justify-between card-hover">
+      <div>
+        <div class="flex justify-between items-start"><h4 class="text-base font-bold text-[#0D3A29]">${esc(ot.topic)}</h4><span class="text-[9px] uppercase font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">No Station</span></div>
+        <p class="text-xs text-slate-600 mt-1 leading-relaxed">${esc(ot.desc)}</p>
+      </div>
+      <div class="pt-3 mt-3 border-t border-slate-100 space-y-2">
+        ${experts.length?`<div><span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1">Experts available:</span><div class="flex flex-wrap gap-1">${experts.map(p=>personChip(p.name,p.role==='Floater')).join('')}</div></div>`:'<span class="text-xs text-slate-400">No experts currently assigned.</span>'}
+        <div class="flex flex-wrap gap-1">${ot.kw.slice(0,3).map(k=>`<span class="text-[9px] bg-slate-50 text-slate-400 px-1.5 py-0.5 rounded">#${k}</span>`).join('')}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Floaters
+  const anyFloaters=STAFF.filter(p=>p.topics.every(t=>t.toLowerCase().trim()==='any topic'));
+  document.getElementById('floater-list').innerHTML=anyFloaters.map(f=>`<span class="inline-flex items-center gap-1.5 text-xs bg-white text-[#0D3A29] px-3 py-1.5 rounded-lg border border-[#D8E4CB] font-semibold shadow-sm cursor-pointer hover:border-[#ABFF44] transition-all" onclick="openModal('${esc(f.name)}')">👤 ${esc(f.name)}<span class="text-slate-400 font-normal text-[10px]">· ${esc(f.title)}</span></span>`).join('');
+}
+
+// ============================================================
+// RENDER DIRECTORY
+// ============================================================
+function renderDirectory(){
+  const q=(document.getElementById('dir-search').value||'').toLowerCase();
+  const cat=document.getElementById('dir-cat').value;
+  const rows=STAFF.filter(p=>{
+    const ok=matchesCat(p.topics,p.role,p.where,cat);
+    if(!ok)return false;
+    if(!q)return true;
+    return p.name.toLowerCase().includes(q)||p.title.toLowerCase().includes(q)||p.role.toLowerCase().includes(q)||p.topics.join(', ').toLowerCase().includes(q)||p.notes.toLowerCase().includes(q);
+  });
+  const tbody=document.getElementById('dir-tbody');
+  if(!rows.length){tbody.innerHTML=`<tr><td colspan="5" class="px-6 py-10 text-center text-slate-400">No experts matched.</td></tr>`;return;}
+  tbody.innerHTML=rows.map((p,i)=>{
+    const bg=i%2===0?'bg-white':'bg-slate-50/50';
+    const roleBadge=p.role==='Booth SME'?'bg-emerald-100 text-emerald-800 border-emerald-200':p.role==='Floater'?'bg-blue-100 text-blue-800 border-blue-200':'bg-slate-100 text-slate-700 border-slate-200';
+    const whereHtml=p.where.includes('Station')?`<span class="text-emerald-700 font-bold">${esc(p.where)}</span>`:p.where==='Roaming'?`<span class="text-blue-700 font-medium">✈ Roaming</span>`:esc(p.where);
+    return`<tr class="${bg} cursor-pointer" onclick="openModal('${esc(p.name)}')">
+      <td class="px-5 py-3 font-bold text-slate-900 whitespace-nowrap">👤 ${esc(p.name)}</td>
+      <td class="px-5 py-3 text-xs text-slate-500 max-w-[200px] truncate">${esc(p.title)||'—'}</td>
+      <td class="px-5 py-3 whitespace-nowrap"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${roleBadge}">${esc(p.role)}</span></td>
+      <td class="px-5 py-3 whitespace-nowrap">${whereHtml}</td>
+      <td class="px-5 py-3"><div class="flex flex-wrap gap-1">${p.topics.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div></td>
+    </tr>`;
+  }).join('');
+}
+
+// ============================================================
+// RENDER MAP
+// ============================================================
+function renderMap(){
+  const g=document.getElementById('map-grid');
+  g.innerHTML=['AX','CX','MX'].map(cl=>{
+    const booths=BOOTHS.filter(b=>b.cluster===cl);
+    return`<div class="bg-slate-50 rounded-xl border border-[#D8E4CB] p-4 space-y-3">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+        <span class="text-sm font-bold text-[#0D3A29]">${esc(CLUSTER_NAMES[cl])}</span>
+        <span class="text-[10px] bg-[#ABFF44] text-[#0D3A29] font-bold px-2 py-0.5 rounded-full uppercase">${esc(CLUSTER_POS[cl])}</span>
+      </div>
+      ${booths.map(b=>`<div class="bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
+        <div class="flex justify-between text-xs font-bold text-[#0D3A29]"><span>Station ${b.station}</span><span class="text-slate-400 font-normal">#${b.cluster}-S${b.station}</span></div>
+        <h4 class="text-sm font-extrabold text-[#0D3A29] mt-0.5">${esc(b.topic)}</h4>
+        <p class="text-[11px] text-slate-500 mt-0.5 italic leading-snug">"${esc(b.tagline)}"</p>
+        <div class="mt-2 pt-2 border-t border-slate-100">
+          <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider block">Manned By:</span>
+          <span class="text-xs text-slate-700 font-bold">👤 ${esc(b.primary.join(', '))}</span>
+        </div>
+      </div>`).join('')}
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+// RENDER SCHEDULE
+// ============================================================
+function renderSchedule(){
+  const tbody=document.getElementById('sched-tbody');
+  tbody.innerHTML=SCHED.map((row,i)=>{
+    const staffed=row.status==='STAFFED', closed=row.status==='CLOSED';
+    const bg=staffed?'bg-[#EFF6E9]/60':closed?'bg-slate-100 text-slate-400':'bg-slate-50/50 text-slate-500';
+    const badge=staffed?'bg-emerald-100 text-emerald-800':closed?'bg-[#FF99B6] text-[#8F4764]':'bg-slate-200 text-slate-500';
+    const label=staffed?'Staffed ✓':closed?'Closed':'—';
+    return`<tr class="${bg} border-b border-[#D8E4CB]/30">
+      <td class="px-4 py-3 font-bold whitespace-nowrap">${esc(row.day)}</td>
+      <td class="px-4 py-3 font-bold whitespace-nowrap">${esc(row.time)}</td>
+      <td class="px-4 py-3 font-extrabold">${esc(row.what)}</td>
+      <td class="px-4 py-3 text-center whitespace-nowrap"><span class="px-2 py-0.5 rounded font-bold uppercase tracking-wider text-[9px] ${badge}">${label}</span></td>
+      <td class="px-4 py-3 max-w-[280px] text-xs">${esc(row.note)||'—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function openModal(name){
+  const p=STAFF.find(s=>s.name===name);if(!p)return;
+  document.getElementById('m-name').textContent=p.name;
+  document.getElementById('m-title').textContent=p.title||'Subject Matter Expert';
+  document.getElementById('m-role').textContent=p.role;
+  document.getElementById('m-where').textContent='📍 '+p.where;
+  document.getElementById('m-topics').innerHTML=p.topics.map(t=>`<span class="tag text-xs px-2.5 py-1">${esc(t)}</span>`).join('');
+  const nw=document.getElementById('m-notes-wrap');
+  if(p.notes){nw.classList.remove('hidden');document.getElementById('m-notes').textContent=p.notes;}
+  else{nw.classList.add('hidden');}
+  document.getElementById('modal').classList.remove('hidden');
+}
+function closeModal(){document.getElementById('modal').classList.add('hidden');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+// ============================================================
+// INIT
+// ============================================================
+render();
+renderSchedule();
+
+
+
