@@ -1,11 +1,11 @@
-
-
-
-
-
-Opticon 2026 — SME & Booth Finder
-
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Opticon 2026 — SME &amp; Booth Finder</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
   body { font-family: 'Arial', sans-serif; }
   .card-hover:hover { box-shadow: 0 4px 20px rgba(13,58,41,0.12); transform: translateY(-1px); transition: all 0.15s ease; }
   .pill-active { background:#0D3A29; color:#fff; }
@@ -21,175 +21,175 @@ Opticon 2026 — SME & Booth Finder
   .modal-overlay { position:fixed;inset:0;background:rgba(15,23,42,0.6);backdrop-filter:blur(4px);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px; }
   .hidden { display:none!important; }
   input:focus, select:focus { outline:none; box-shadow:0 0 0 2px #0D3A29; }
+</style>
+</head>
+<body class="bg-slate-50 text-[#08251A] min-h-screen">
 
+<!-- HEADER -->
+<header class="bg-[#0D3A29] text-white border-b-8 border-[#ABFF44] shadow-md sticky top-0 z-40">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    <div class="flex items-center">
+      <span class="kicker"></span>
+      <div>
+        <h1 class="text-lg md:text-2xl font-bold text-white">Opticon 2026 — SME &amp; Booth Finder</h1>
+        <p class="text-xs text-emerald-100">Internal On-Floor Connector · New York City</p>
+      </div>
+    </div>
+    <nav class="flex bg-[#08251A] p-1 rounded-lg border border-emerald-800 gap-0.5">
+      <button onclick="showTab('finder')" id="tab-finder" class="px-3 py-1.5 text-xs font-semibold rounded-md transition-all bg-[#ABFF44] text-[#08251A]">Booth Finder</button>
+      <button onclick="showTab('directory')" id="tab-directory" class="px-3 py-1.5 text-xs font-semibold rounded-md transition-all text-slate-300 hover:text-white">Expert Directory</button>
+      <button onclick="showTab('map')" id="tab-map" class="px-3 py-1.5 text-xs font-semibold rounded-md transition-all text-slate-300 hover:text-white">Booth Map</button>
+      <button onclick="showTab('schedule')" id="tab-schedule" class="px-3 py-1.5 text-xs font-semibold rounded-md transition-all text-slate-300 hover:text-white">Schedule</button>
+    </nav>
+  </div>
+</header>
 
+<!-- TIP BAR -->
+<div class="bg-[#EFF6E9] border-b border-[#D8E4CB]">
+  <div class="max-w-6xl mx-auto px-4 py-2 text-xs text-[#0D3A29] font-semibold flex items-center gap-2">
+    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+    Tip: <span class="font-normal text-slate-700 ml-1">Bring customers straight to the booth — no appointment needed.</span>
+  </div>
+</div>
 
+<main class="max-w-6xl mx-auto px-4 mt-6 pb-12">
 
+<!-- ======================== FINDER TAB ======================== -->
+<div id="pane-finder">
+  <div class="bg-white rounded-xl shadow-sm border border-[#D8E4CB] p-4 md:p-6 space-y-4 mb-6">
+    <h2 class="text-lg font-bold text-[#0D3A29]">🔎 Ask-An-Expert Search</h2>
+    <div class="flex flex-col md:flex-row gap-3">
+      <div class="flex-1 relative">
+        <input id="search" type="text" placeholder="Search topic, keyword (e.g. 'VTs', 'personalization'), or expert name..." oninput="render()" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-[#D8E4CB] rounded-lg text-sm text-slate-800 placeholder-slate-400"/>
+        <span class="absolute left-3.5 top-3 text-slate-400">🔍</span>
+      </div>
+      <button onclick="document.getElementById('search').value='';render()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-xs font-semibold rounded-lg text-slate-600">Clear</button>
+    </div>
+    <div class="flex flex-wrap gap-1.5 pt-1">
+      <button onclick="setFilter('all')" id="f-all" class="pill-active px-3 py-1.5 text-xs font-semibold rounded-full transition-all">All</button>
+      <button onclick="setFilter('platform')" id="f-platform" class="pill-inactive px-3 py-1.5 text-xs font-semibold rounded-full transition-all">Agent Platform</button>
+      <button onclick="setFilter('cms')" id="f-cms" class="pill-inactive px-3 py-1.5 text-xs font-semibold rounded-full transition-all">Agentic CMS</button>
+      <button onclick="setFilter('exp')" id="f-exp" class="pill-inactive px-3 py-1.5 text-xs font-semibold rounded-full transition-all">Agentic Exp / Personalization</button>
+      <button onclick="setFilter('other')" id="f-other" class="pill-inactive px-3 py-1.5 text-xs font-semibold rounded-full transition-all">Other Product SMEs</button>
+      <button onclick="setFilter('industries')" id="f-industries" class="pill-inactive px-3 py-1.5 text-xs font-semibold rounded-full transition-all">Industries</button>
+      <button onclick="setFilter('marketing')" id="f-marketing" class="pill-inactive px-3 py-1.5 text-xs font-semibold rounded-full transition-all">Opti on Opti &amp; Marketing</button>
+    </div>
+  </div>
 
+  <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Demo Basecamp Stations</h3>
+  <div id="booth-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8"></div>
 
-  
-    
-      
-      
-        Opticon 2026 — SME & Booth Finder
-        Internal On-Floor Connector · New York City
-      
-    
-    
-      Booth Finder
-      Expert Directory
-      Booth Map
-      Schedule
-    
-  
+  <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Roaming &amp; Off-Booth Subjects</h3>
+  <div id="other-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8"></div>
 
+  <div class="bg-[#EFF6E9] rounded-xl border border-[#D8E4CB] p-4">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="text-[10px] bg-[#ABFF44] text-[#0D3A29] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">Floaters</span>
+      <span class="text-sm font-bold text-[#0D3A29]">Available for any topic</span>
+    </div>
+    <p class="text-xs text-slate-600 mb-3">Grab these roaming experts if a booth is busy or the topic has no dedicated station.</p>
+    <div id="floater-list" class="flex flex-wrap gap-2"></div>
+  </div>
+</div>
 
+<!-- ======================== DIRECTORY TAB ======================== -->
+<div id="pane-directory" class="hidden space-y-6">
+  <div class="bg-[#0D3A29] text-white rounded-xl p-4 md:p-6 flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <h3 class="text-lg font-bold">On-Floor Experts List</h3>
+      <p class="text-xs text-emerald-100 mt-0.5">All 73 registered Optimizely SMEs</p>
+    </div>
+    <div class="flex gap-3">
+      <div class="text-center px-4 py-1.5 bg-white/10 rounded border border-white/10"><span class="block text-xl font-black text-[#ABFF44]">15</span><span class="text-[10px] uppercase font-bold text-slate-300">Booth SMEs</span></div>
+      <div class="text-center px-4 py-1.5 bg-white/10 rounded border border-white/10"><span class="block text-xl font-black text-[#ABFF44]">12</span><span class="text-[10px] uppercase font-bold text-slate-300">Floaters</span></div>
+      <div class="text-center px-4 py-1.5 bg-white/10 rounded border border-white/10"><span class="block text-xl font-black text-[#ABFF44]">46</span><span class="text-[10px] uppercase font-bold text-slate-300">Other SMEs</span></div>
+    </div>
+  </div>
+  <div class="flex gap-3">
+    <div class="flex-1 relative">
+      <input id="dir-search" type="text" placeholder="Filter by name, title, role, or topic..." oninput="renderDirectory()" class="w-full pl-10 pr-4 py-2.5 bg-white border border-[#D8E4CB] rounded-lg text-sm text-slate-800 placeholder-slate-400"/>
+      <span class="absolute left-3.5 top-3 text-slate-400">🔍</span>
+    </div>
+    <select id="dir-cat" onchange="renderDirectory()" class="px-3 py-2.5 bg-white border border-[#D8E4CB] rounded-lg text-sm text-slate-700">
+      <option value="all">All Specialties</option>
+      <option value="platform">Agent Platform</option>
+      <option value="cms">Agentic CMS</option>
+      <option value="exp">Agentic Exp / Personalization</option>
+      <option value="other">Other Product SMEs</option>
+      <option value="industries">Industries</option>
+      <option value="marketing">Opti on Opti &amp; Marketing</option>
+    </select>
+  </div>
+  <div class="bg-white rounded-xl border border-[#D8E4CB] overflow-hidden shadow-sm">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse text-sm">
+        <thead><tr class="bg-[#0D3A29] text-white text-xs font-bold uppercase tracking-wider">
+          <th class="px-5 py-3">Name</th><th class="px-5 py-3">Title</th><th class="px-5 py-3">Role</th><th class="px-5 py-3">Location</th><th class="px-5 py-3">Topics</th>
+        </tr></thead>
+        <tbody id="dir-tbody" class="divide-y divide-slate-100"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
+<!-- ======================== MAP TAB ======================== -->
+<div id="pane-map" class="hidden">
+  <div class="bg-white rounded-xl border border-[#D8E4CB] p-4 md:p-6 space-y-6">
+    <h3 class="text-lg font-bold text-[#0D3A29]">Basecamp Physical Layout</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="map-grid"></div>
+    <div class="flex flex-col items-center pt-4 border-t border-slate-100">
+      <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Floor Plan — Blue Circles = SME Stations</span>
+      <div class="border border-slate-200 rounded-xl overflow-hidden shadow max-w-4xl w-full">
+        <img src="Opticon_2026_Schedule_Corrected.png" alt="Opticon NYC Floor Plan" class="w-full h-auto block" onerror="this.style.display='none';this.nextSibling.style.display='block'"/>
+        <p style="display:none" class="text-xs text-center text-slate-400 py-6">Floor plan image — download from the repo or view the PDF.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-  
-    
-    Tip: Bring customers straight to the booth — no appointment needed.
-  
+<!-- ======================== SCHEDULE TAB ======================== -->
+<div id="pane-schedule" class="hidden">
+  <div class="bg-white rounded-xl border border-[#D8E4CB] p-4 md:p-6 space-y-4">
+    <h3 class="text-lg font-bold text-[#0D3A29]">Opticon 2026 Timeline &amp; Logistics</h3>
+    <p class="text-xs text-slate-500">Grey rows = Basecamp closed (general sessions). No booth staffing during those windows.</p>
+    <div class="overflow-x-auto rounded-xl border border-[#D8E4CB]">
+      <table class="w-full text-left border-collapse text-xs">
+        <thead><tr class="bg-[#0D3A29] text-white font-bold uppercase tracking-wider">
+          <th class="px-4 py-3">Day</th><th class="px-4 py-3">Time</th><th class="px-4 py-3">Event</th><th class="px-4 py-3 text-center">Booths</th><th class="px-4 py-3">Notes</th>
+        </tr></thead>
+        <tbody id="sched-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
+</main>
 
+<!-- PERSON MODAL -->
+<div id="modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal()">
+  <div class="bg-white rounded-2xl max-w-lg w-full shadow-xl border border-[#D8E4CB] overflow-hidden">
+    <div class="bg-[#0D3A29] text-white p-6 border-b-4 border-[#ABFF44]">
+      <div class="flex justify-between items-start">
+        <div>
+          <span id="m-role" class="text-[10px] uppercase font-bold tracking-widest text-[#ABFF44] bg-[#08251A] px-2.5 py-0.5 rounded-full"></span>
+          <h4 id="m-name" class="text-2xl font-black mt-2"></h4>
+          <p id="m-title" class="text-sm text-emerald-100 italic mt-1"></p>
+        </div>
+        <button onclick="closeModal()" class="text-white/60 hover:text-white text-xl p-1 bg-white/10 hover:bg-white/20 rounded">✕</button>
+      </div>
+    </div>
+    <div class="p-6 space-y-4">
+      <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Location</span><p id="m-where" class="font-bold text-[#0D3A29] mt-1"></p></div>
+      <div><span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Topics</span><div id="m-topics" class="flex flex-wrap gap-1.5 mt-1.5"></div></div>
+      <div id="m-notes-wrap" class="p-4 bg-[#EFF6E9] rounded-xl border border-[#D8E4CB] hidden"><span class="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block mb-1">Sessions &amp; Notes</span><p id="m-notes" class="text-xs text-slate-700 leading-relaxed"></p></div>
+    </div>
+    <div class="bg-slate-50 p-4 border-t border-slate-100 flex justify-end">
+      <button onclick="closeModal()" class="px-5 py-2 bg-[#0D3A29] text-white text-xs font-bold rounded-lg hover:bg-[#08251A]">Close</button>
+    </div>
+  </div>
+</div>
 
-
-
-
-  
-    🔎 Ask-An-Expert Search
-    
-      
-        
-        🔍
-      
-      Clear
-    
-    
-      All
-      Agent Platform
-      Agentic CMS
-      Agentic Exp / Personalization
-      Other Product SMEs
-      Industries
-      Opti on Opti & Marketing
-    
-  
-
-  Demo Basecamp Stations
-  
-
-  Roaming & Off-Booth Subjects
-  
-
-  
-    
-      Floaters
-      Available for any topic
-    
-    Grab these roaming experts if a booth is busy or the topic has no dedicated station.
-    
-  
-
-
-
-
-  
-    
-      On-Floor Experts List
-      All 73 registered Optimizely SMEs
-    
-    
-      15Booth SMEs
-      12Floaters
-      46Other SMEs
-    
-  
-  
-    
-      
-      🔍
-    
-    
-      All Specialties
-      Agent Platform
-      Agentic CMS
-      Agentic Exp / Personalization
-      Other Product SMEs
-      Industries
-      Opti on Opti & Marketing
-    
-  
-  
-    
-      
-        
-          NameTitleRoleLocationTopics
-        
-        
-      
-    
-  
-
-
-
-
-  
-    Basecamp Physical Layout
-    
-    
-      Floor Plan — Blue Circles = SME Stations
-      
-        
-        Floor plan image — download from the repo or view the PDF.
-      
-    
-  
-
-
-
-
-  
-    Opticon 2026 Timeline & Logistics
-    Grey rows = Basecamp closed (general sessions). No booth staffing during those windows.
-    
-      
-        
-          DayTimeEventBoothsNotes
-        
-        
-      
-    
-  
-
-
-
-
-
-
-  
-    
-      
-        
-          
-          
-          
-        
-        ✕
-      
-    
-    
-      Location
-      Topics
-      Sessions & Notes
-    
-    
-      Close
-    
-  
-
-
-
+<script>
 // ============================================================
 // DATA
 // ============================================================
@@ -550,6 +550,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 // ============================================================
 render();
 renderSchedule();
-
-
-
+</script>
+</body>
+</html>
