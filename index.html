@@ -6,10 +6,12 @@
 <title>Opticon 2026 — SME &amp; Booth Finder</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  body { font-family: 'Arial', sans-serif; }
+  body { font-family: 'Arial', sans-serif; -webkit-text-size-adjust:100%; }
+  * { -webkit-tap-highlight-color: transparent; }
   .card-hover:hover { box-shadow: 0 4px 20px rgba(13,58,41,0.12); transform: translateY(-1px); transition: all 0.15s ease; }
   .pill-active { background:#0D3A29; color:#fff; }
   .pill-inactive { background:#f8faf7; color:#374151; border:1px solid #D8E4CB; }
+  @media(max-width:640px){ .pill-active,.pill-inactive { padding:8px 14px !important; font-size:12px !important; } }
   .pill-inactive:hover { background:#EFF6E9; }
   .tag { background:#EFF6E9; color:#0D3A29; border:1px solid #D8E4CB; font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px; }
   .kicker { width:4px; height:28px; background:#ABFF44; border-radius:2px; display:inline-block; margin-right:10px; vertical-align:middle; }
@@ -34,7 +36,7 @@
         <p class="text-xs text-emerald-100">Internal On-Floor Connector · New York City</p>
       </div>
     </div>
-    <nav class="flex bg-[#08251A] p-1 rounded-lg border border-emerald-800 gap-0.5">
+    <nav class="flex bg-[#08251A] p-1 rounded-lg border border-emerald-800 gap-0.5 overflow-x-auto">
       <button onclick="showTab('finder')" id="tab-finder" class="px-3 py-1.5 text-xs font-semibold rounded-md transition-all bg-[#ABFF44] text-[#08251A]">Booth Finder</button>
       <button onclick="showTab('directory')" id="tab-directory" class="px-3 py-1.5 text-xs font-semibold rounded-md transition-all text-slate-300 hover:text-white">Expert Directory</button>
       <button onclick="showTab('map')" id="tab-map" class="px-3 py-1.5 text-xs font-semibold rounded-md transition-all text-slate-300 hover:text-white">Booth Map</button>
@@ -120,7 +122,7 @@
       <option value="marketing">Opti on Opti &amp; Marketing</option>
     </select>
   </div>
-  <div class="bg-white rounded-xl border border-[#D8E4CB] overflow-hidden shadow-sm">
+  <div id="dir-table-wrap" class="bg-white rounded-xl border border-[#D8E4CB] overflow-hidden shadow-sm hidden md:block">
     <div class="overflow-x-auto">
       <table class="w-full text-left border-collapse text-sm">
         <thead><tr class="bg-[#0D3A29] text-white text-xs font-bold uppercase tracking-wider">
@@ -130,6 +132,7 @@
       </table>
     </div>
   </div>
+  <div id="dir-cards" class="md:hidden space-y-3"></div>
 </div>
 
 <!-- ======================== MAP TAB ======================== -->
@@ -155,7 +158,7 @@
     <div class="overflow-x-auto rounded-xl border border-[#D8E4CB]">
       <table class="w-full text-left border-collapse text-xs">
         <thead><tr class="bg-[#0D3A29] text-white font-bold uppercase tracking-wider">
-          <th class="px-4 py-3">Day</th><th class="px-4 py-3">Time</th><th class="px-4 py-3">Event</th><th class="px-4 py-3 text-center">Booths</th><th class="px-4 py-3">Notes</th>
+          <th class="px-3 py-3">Day</th><th class="px-3 py-3">Time</th><th class="px-3 py-3">Event</th><th class="px-3 py-3 text-center">Booths</th><th class="px-3 py-3 hidden md:table-cell">Notes</th>
         </tr></thead>
         <tbody id="sched-tbody"></tbody>
       </table>
@@ -167,7 +170,7 @@
 
 <!-- PERSON MODAL -->
 <div id="modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal()">
-  <div class="bg-white rounded-2xl max-w-lg w-full shadow-xl border border-[#D8E4CB] overflow-hidden">
+  <div class="bg-white rounded-2xl max-w-lg w-full shadow-xl border border-[#D8E4CB] overflow-hidden max-h-[90vh] overflow-y-auto">
     <div class="bg-[#0D3A29] text-white p-6 border-b-4 border-[#ABFF44]">
       <div class="flex justify-between items-start">
         <div>
@@ -508,6 +511,20 @@ function renderDirectory(){
       <td class="px-5 py-3"><div class="flex flex-wrap gap-1">${p.topics.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div></td>
     </tr>`;
   }).join('');
+  // Mobile card list
+  const cards=document.getElementById('dir-cards');
+  if(cards){cards.innerHTML=rows.map(p=>{
+    const roleBadge=p.role==='Booth SME'?'bg-emerald-100 text-emerald-800':'bg-slate-100 text-slate-700';
+    return`<div class="bg-white rounded-xl border border-[#D8E4CB] p-4 shadow-sm cursor-pointer active:bg-slate-50" onclick="openModal('${esc(p.name)}')">
+      <div class="flex justify-between items-start mb-2">
+        <span class="font-bold text-slate-900 text-sm">👤 ${esc(p.name)}</span>
+        <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${roleBadge}">${esc(p.role)}</span>
+      </div>
+      <p class="text-xs text-slate-500 mb-2">${esc(p.title)||''}</p>
+      <p class="text-xs text-blue-700 font-medium mb-2">${p.where==='Roaming'?'✈ Roaming':p.where.includes('Station')?'📍 '+p.where:p.where}</p>
+      <div class="flex flex-wrap gap-1">${p.topics.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+    </div>`;
+  }).join('');}
 }
 
 // ============================================================
@@ -546,11 +563,11 @@ function renderSchedule(){
     const badge=staffed?'bg-emerald-100 text-emerald-800':closed?'bg-[#FF99B6] text-[#8F4764]':'bg-slate-200 text-slate-500';
     const label=staffed?'Staffed ✓':closed?'Closed':'—';
     return`<tr class="${bg} border-b border-[#D8E4CB]/30">
-      <td class="px-4 py-3 font-bold whitespace-nowrap">${esc(row.day)}</td>
-      <td class="px-4 py-3 font-bold whitespace-nowrap">${esc(row.time)}</td>
-      <td class="px-4 py-3 font-extrabold">${esc(row.what)}</td>
-      <td class="px-4 py-3 text-center whitespace-nowrap"><span class="px-2 py-0.5 rounded font-bold uppercase tracking-wider text-[9px] ${badge}">${label}</span></td>
-      <td class="px-4 py-3 max-w-[280px] text-xs">${esc(row.note)||'—'}</td>
+      <td class="px-3 py-3 font-bold whitespace-nowrap text-xs">${esc(row.day)}</td>
+      <td class="px-3 py-3 font-bold whitespace-nowrap text-xs">${esc(row.time)}</td>
+      <td class="px-3 py-3 font-extrabold text-xs">${esc(row.what)}</td>
+      <td class="px-3 py-3 text-center whitespace-nowrap"><span class="px-2 py-0.5 rounded font-bold uppercase tracking-wider text-[9px] ${badge}">${label}</span></td>
+      <td class="px-3 py-3 max-w-[280px] text-xs hidden md:table-cell">${esc(row.note)||'—'}</td>
     </tr>`;
   }).join('');
 }
