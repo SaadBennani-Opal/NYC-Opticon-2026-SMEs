@@ -218,6 +218,8 @@ const BOOTHS=[
 ];
 
 const OTHER_TOPICS=[
+  {topic:"Dynamic Experiences",desc:"Experiences that adapt in real time to who is on the page. Covered in the keynote.",kw:["dynamic experiences","dynamic","real-time experiences"],color:"#007B79",pillar:"CX Pillar"},
+  {topic:"Content and Product Recommendations",desc:"Content and product recommendation engines across the suite.",kw:["recommendations","content recommendations","product recommendations"],color:"#8F4764"},
   {topic:"Agent Platform",desc:"The platform behind the agents: releases, infrastructure, and enablement.",kw:["agent platform","platform enablement","platform releases"],color:"#0D3A29"},
   {topic:"Opti on Opti",desc:"How we run Optimizely on Optimizely — our own stack, live.",kw:["opti on opti","dogfooding","our own site"],color:"#007B79"},
   {topic:"Opal U",desc:"Opal University — enablement, training, and certification.",kw:["opal u","opal university","training","enablement"],color:"#197050"},
@@ -251,14 +253,14 @@ const STAFF=[
   {name:"Darcey Lachtman",title:"Solution Strategy Director",role:"SME",where:"Roaming",topics:["Agentic Experimentation"],notes:"Track lead — The Outpost"},
   {name:"Joe Timko",title:"VP, Software Engineering",role:"SME",where:"Roaming",topics:["Analytics & Data Platform"],notes:"SME for warehouse-native analytics (Netspring)"},
   {name:"Julia Maguire",title:"Integrated Marketing & AI Innovation Director",role:"SME",where:"Roaming",topics:["Opti on Opti"],notes:"Speaker: No Account Left Behind — 12:00-12:30, Agent Lodge"},
-  {name:"Michiel Dorjee",title:"Director, AI Innovation & Digital Marketing",role:"SME",where:"Roaming",topics:["Opti on Opti","Limitless 1:1 Personalization","Agent Building"],notes:"Speaker: No Account Left Behind 12:00 + Never Stop Optimizing 2:45, Agent Lodge"},
+  {name:"Michiel Dorjee",title:"Director, AI Innovation & Digital Marketing",role:"SME",where:"Roaming",topics:["Opti on Opti","Limitless 1:1 Personalization","Agent Building","Dynamic Experiences"],notes:"Speaker: No Account Left Behind 12:00 + Never Stop Optimizing 2:45, Agent Lodge"},
   {name:"Nelson Hong",title:"Solution Strategy Director",role:"SME",where:"Roaming",topics:["CMS","Sitecore"],notes:"Track lead — The Bonfire"},
   {name:"Nicola Ayan",title:"VP, Solution Strategy",role:"SME",where:"Roaming",topics:["Any topic", "Sitecore"],notes:"Floater for any topic"},
-  {name:"Phil Yates",title:"Strategic Solution Architect",role:"Floater",where:"Roaming",topics:["Agent Experience","Agent Visibility","Agent-Ready Experiences","Limitless 1:1 Personalization","Agentic Experimentation","Autonomous Optimization","Virtual Teammates","Agentic Content Operations","Agent Building"],notes:"Backup floater"},
+  {name:"Phil Yates",title:"VP, Solution Architecture",role:"Floater",where:"Roaming",topics:["Agent Experience","Agent Visibility","Agent-Ready Experiences","Limitless 1:1 Personalization","Agentic Experimentation","Autonomous Optimization","Virtual Teammates","Agentic Content Operations","Agent Building"],notes:"Backup floater"},
   {name:"Rob Folan",title:"Senior Director, Solution Architecture",role:"Floater",where:"Roaming",topics:["Agent Experience","Agent Visibility","Agent-Ready Experiences","Limitless 1:1 Personalization","Agentic Experimentation","Autonomous Optimization","Virtual Teammates","Agentic Content Operations","Agent Building"],notes:"Backup floater"},
   {name:"Sally Bolig",title:"Principal Enablement Manager",role:"SME",where:"Roaming",topics:["Agent Platform Enablement"],notes:"Solution Strategy — Opal"},
   {name:"Zach Coulter",title:"Director, Solution Architecture",role:"Floater",where:"Roaming",topics:["Agent Experience","Agent Visibility","Agent-Ready Experiences","Limitless 1:1 Personalization","Agentic Experimentation","Autonomous Optimization","Virtual Teammates","Agentic Content Operations","Agent Building"],notes:"Backup floater"},
-  {name:"Alex Whitney",title:"Principal Product Manager",role:"SME",where:"Roaming",topics:["Commerce","Analytics & Data Platform"],notes:""},
+  {name:"Alex Whitney",title:"Principal Product Manager",role:"SME",where:"Roaming",topics:["Agent Building","Virtual Teammates"],notes:""},
   {name:"Ali Hart",title:"Product Marketing Director",role:"SME",where:"Roaming",topics:["Agent Platform T1 Releases"],notes:""},
   {name:"Amit Shimsi",title:"Principal Product Manager",role:"SME",where:"Roaming",topics:["Virtual Teammates"],notes:"Speaker: Hire Your Virtual Teammate — 11:15-11:45, Agent Lodge"},
   {name:"Aniel Sud",title:"Chief Technology Officer",role:"SME",where:"Roaming",topics:["CMS"],notes:""},
@@ -267,7 +269,7 @@ const STAFF=[
   {name:"Audrey Hungerman",title:"Director, Customer Success",role:"SME",where:"Roaming",topics:["Agentic Experimentation"],notes:"Speaker: The 'M' Word (TBC) — 12:15-12:30, Tent Talks"},
   {name:"Bri Morgaine",title:"Senior Product Marketing Manager",role:"SME",where:"Roaming",topics:["CMS","Agent Visibility"],notes:""},
   {name:"Britt Hall",title:"VP, Product",role:"SME",where:"Roaming",topics:["Agentic Experimentation"],notes:"Speaker: Never Stop Optimizing — 2:45-3:15, Agent Lodge"},
-  {name:"Brittany Butler",title:"Senior Manager, Product Management",role:"SME",where:"Roaming",topics:["Commerce","Analytics & Data Platform"],notes:""},
+  {name:"Brittany Butler",title:"Senior Manager, Product Management",role:"SME",where:"Roaming",topics:["Analytics & Data Platform","Content and Product Recommendations"],notes:""},
   {name:"Cory Liebgott",title:"VP, Product",role:"SME",where:"Roaming",topics:["Commerce","Analytics & Data Platform"],notes:""},
   {name:"Ellen Ritmeester",title:"VP, Marketing",role:"SME",where:"Roaming",topics:["Opti on Opti"],notes:"Speaker: AI Is Changing Faster Than Your Org Chart — 2:00-2:30, The Bonfire"},
   {name:"Filip Langewolf",title:"Senior Content Marketing Manager",role:"SME",where:"Roaming",topics:["Content Marketing SME"],notes:"Track lead — Tent Talks"},
@@ -276,11 +278,11 @@ const STAFF=[
   {name:"Greg Heinz",title:"Senior Director, Marketing",role:"SME",where:"Roaming",topics:["Opti on Opti"],notes:"Speaker: The 'M' Word — 12:15-12:30, Tent Talks"},
   {name:"Haley Williams",title:"Director, Communications",role:"SME",where:"Roaming",topics:["Sitecore","Adobe","ContentStack","Contentful","Statsig (Competitive Intel)"],notes:""},
   {name:"Imran Yousuf",title:"VP, Software Engineering",role:"SME",where:"Roaming",topics:["Agent Platform","CMP"],notes:"Speaker: What we're building next — 1:00-1:30, Exec Summit"},
-  {name:"Jean Tsong",title:"Senior Product Manager",role:"SME",where:"Roaming",topics:["Commerce","Content and Product Recommendations"],notes:""},
+  {name:"Jean Tsong",title:"Senior Product Manager",role:"SME",where:"Roaming",topics:["Content and Product Recommendations"],notes:""},
   {name:"Jordan Stecker",title:"Manager, Global Customer Communities",role:"SME",where:"Roaming",topics:["Community SME"],notes:"Track lead — Exec Summit"},
-  {name:"Josh Holt",title:"Principal Product Manager",role:"SME",where:"Roaming",topics:["Agentic Experimentation"],notes:"Speaker: AI Runs the Tests — 2:45-3:15, The Bonfire"},
+  {name:"Josh Holt",title:"Principal Product Manager",role:"SME",where:"Roaming",topics:["Agentic Experimentation","Autonomous Optimization"],notes:"Speaker: AI Runs the Tests — 2:45-3:15, The Bonfire"},
   {name:"Julianne DeVincenzo",title:"Senior Manager, Content Marketing",role:"SME",where:"Roaming",topics:["Content Marketing SME"],notes:"Speaker: Humanity Is The Premium Layer — 11:15-11:45, The Bonfire"},
-  {name:"Kevin Li",title:"SVP, Product",role:"SME",where:"Roaming",topics:["Any topic","Virtual Teammates","Agent Visibility","Product Roadmap & Strategy"],notes:"Speaker: What we're building next — 1:00-1:30, Exec Summit"},
+  {name:"Kevin Li",title:"SVP, Product",role:"SME",where:"Roaming",topics:["Any topic","Virtual Teammates","Agent Visibility","Product Roadmap & Strategy","Dynamic Experiences"],notes:"Speaker: What we're building next — 1:00-1:30, Exec Summit"},
   {name:"Lauren Brennan",title:"Senior Manager, Product Marketing",role:"SME",where:"Roaming",topics:["Agentic Experimentation"],notes:"Speaker: AI Runs the Tests — 2:45-3:15, The Bonfire"},
   {name:"Lauren Hammarstedt",title:"VP, Product",role:"SME",where:"Roaming",topics:["Agent Platform","Virtual Teammates","Agent Building"],notes:""},
   {name:"Mario Oliver",title:"Senior Product Manager",role:"SME",where:"Roaming",topics:["CMS"],notes:"Speaker support: Who Are You Really Marketing To — 12:00-12:30, The Bonfire"},
@@ -291,7 +293,7 @@ const STAFF=[
   {name:"Neil Mullarkey",title:"Principal Product Manager",role:"SME",where:"Roaming",topics:["CMP"],notes:""},
   {name:"Nikita Bokil",title:"Senior Principal Product Manager",role:"SME",where:"Roaming",topics:["Agent Platform","Agent Building"],notes:"Speaker: AI Needs to Be Lazier — 11:15-11:30, Tent Talks"},
   {name:"Peter Ten Eyck",title:"Manager, Strategy & Value",role:"SME",where:"Roaming",topics:["Agentic Industries","AI/Value Workshops"],notes:"Speaker: What 154,000 Experiments Taught Us About AI — 2:00-2:30, The Outpost"},
-  {name:"Ricki Lawal",title:"Digital Marketing Director",role:"SME",where:"Roaming",topics:["Virtual Teammates","Campaign Marketing SME"],notes:"Speaker: Hire Your Virtual Teammate — 11:15-11:45, Agent Lodge"},
+  {name:"Ricki Lawal",title:"Digital Marketing Director",role:"SME",where:"Roaming",topics:["Virtual Teammates","Opti on Opti","Campaign Marketing SME"],notes:"Speaker: Hire Your Virtual Teammate — 11:15-11:45, Agent Lodge"},
   {name:"Rob Driscoll",title:"Director, Product Management",role:"SME",where:"Roaming",topics:["CMP"],notes:""},
   {name:"Rupali Jain",title:"Chief Product Officer",role:"SME",where:"Roaming",topics:["Product Roadmap & Strategy","Agentic Experimentation and Personalization"],notes:""},
   {name:"Saad Bennani",title:"Senior Solution Strategist",role:"SME",where:"Roaming",topics:["Agent Platform (VTs, Limitless, Agent Building)"],notes:""},
@@ -312,7 +314,7 @@ const STAFF=[
 
 
 // People who can cover any topic (shown in the bottom section)
-const ANY_TOPIC_NAMES=["Nicola Ayan","Kevin Li","Zach Coulter","Phil Yates","Rob Folan","Chris Vafiadis"];
+const ANY_TOPIC_NAMES=["Nicola Ayan","Kevin Li","Zach Coulter","Phil Yates","Rob Folan","Chris Vafiadis","David Knipe","Kunal Shetye","James Stout"];
 // These two cover literally anything; everyone else below is scoped to the 9 booth topics
 const ANY_TOPIC_UNLIMITED=["Nicola Ayan","Kevin Li"];
 
@@ -346,6 +348,8 @@ const TOPIC_KW={
   "Virtual Teammates":["virtual teammates","vts"],
   "Agentic Content Operations":["content operat","content ops"],
   "Agent Platform":["agent platform"],
+  "Dynamic Experiences":["dynamic experiences"],
+  "Content and Product Recommendations":["recommendations"],
   "Agent Building":["agent building","agent builder","build agents"],
   "Opti on Opti":["opti on opti"],
   "Opal U":["opal u"],
@@ -385,8 +389,8 @@ function matchesCat(topics,role,where,cat){
   const w=(where||'').toLowerCase();
   if(cat==='platform')return t.includes('agent platform')||t.includes('agent building')||t.includes('agent experience')||t.includes('agent visibility')||t.includes('agent-ready')||t.includes('virtual teammates')||t.includes('vts')||t.includes('opal u')||w.includes('ax')||w.includes('mx · station 1')||w.includes('mx · station 3');
   if(cat==='cms')return t.includes('cms')||t.includes('sitecore')||t.includes('agentic content operations')||w.includes('mx · station 2');
-  if(cat==='exp')return t.includes('experimentation')||t.includes('personalization')||t.includes('optimization')||w.includes('cx');
-  if(cat==='other')return t.includes('commerce')||t.includes('cmp')||t.includes('data platform')||t.includes('analytics')||t.includes('roadmap')||t.includes('strategy');
+  if(cat==='exp')return t.includes('experimentation')||t.includes('personalization')||t.includes('optimization')||t.includes('dynamic experiences')||w.includes('cx');
+  if(cat==='other')return t.includes('commerce')||t.includes('cmp')||t.includes('data platform')||t.includes('analytics')||t.includes('recommendations')||t.includes('roadmap')||t.includes('strategy');
   if(cat==='industries')return t.includes('industries')||t.includes('verticalization')||t.includes('workshops');
   if(cat==='marketing')return t.includes('opti on opti')||t.includes('marketing')||t.includes('content marketing')||t.includes('community')||t.includes('brand');
   return false;
@@ -477,7 +481,10 @@ function render(){
     return`<div class="bg-white rounded-xl shadow-sm border border-[#D8E4CB] overflow-hidden flex flex-col card-hover">
       <div class="px-4 py-3 flex justify-between items-center" style="background:${ot.color||'#007B79'}">
         <h4 class="text-sm font-bold text-white">${esc(ot.topic)}</h4>
-        <span class="text-[9px] uppercase font-bold text-white/70 bg-black/20 px-2 py-0.5 rounded-full whitespace-nowrap">No Station</span>
+        <div class="flex items-center gap-1.5 shrink-0">
+          ${ot.pillar?`<span class="text-[9px] uppercase font-bold text-[#ABFF44] bg-black/30 px-2 py-0.5 rounded-full whitespace-nowrap">${esc(ot.pillar)}</span>`:''}
+          <span class="text-[9px] uppercase font-bold text-white/70 bg-black/20 px-2 py-0.5 rounded-full whitespace-nowrap">No Station</span>
+        </div>
       </div>
       <div class="p-4 flex-1 flex flex-col justify-between">
       <div>
